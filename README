@@ -21,4 +21,4 @@ To fetch email, just call MailFetcher.fetch:
   
   MailFetcher.fetch(:keep => true, :mailer_methods => [:receive, :spam, :forward_to_friends_and_family])
 
-Copyright (c) 2008 Steve Iannopollo (steve at iannopollo.com), released under the MIT license
+Copyright (c) 2008 Steve Iannopollo (steve (at iannopollo.com)), released under the MIT license
