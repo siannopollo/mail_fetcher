@@ -1,0 +1,9 @@
+test:
+  :server: "pop.gmail.com"
+  :username: "mail.fetcher.test@gmail.com"
+  :password: "mailfetchertest"
+development:
+  :server: "imap.gmail.com"
+  :port: 993
+  :username: "mail.fetcher.test@gmail.com"
+  :password: "mailfetchertest"

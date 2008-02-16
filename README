@@ -1,0 +1,24 @@
+Fetches emails via the Net::POP3 or Net::IMAP library over an SSL connection. Also useful with the action_mailer_tls plugin
+if you want to send and receive emails through GMail. This plugin has only been tested against Rails 2, so, caveat emptor...
+
+The fetcher assumes there is a mailer.yml file in the config/ directory, and a sample can be seen in the 
+mail_fetcher.yml.example file. The config expects a hash, so configuring it at runtime is also possible, like so:
+
+  MailFetcher.config = {
+    :server => "pop.gmail.com",
+    :username => "mail.fetcher.test@gmail.com",
+    :password => "mailfetchertest"
+  }
+
+Somewhere in your app (most likely in environment.rb) you need to specify the mailer class you wish to use, and the protocol:
+
+  MailFetcher.mailer_class = :my_mailer
+  MailFetcher.access = :pop  (defaults to :imap)
+
+And this would use the MyMailer class as the ActionMailer mailing class, and set @@access to :pop, which would log into the account using Net::POP3.
+
+To fetch email, just call MailFetcher.fetch:
+  
+  MailFetcher.fetch(:keep => true, :mailer_methods => [:receive, :spam, :forward_to_friends_and_family])
+
+Copyright (c) 2008 Steve Iannopollo (steve at iannopollo.com), released under the MIT license
