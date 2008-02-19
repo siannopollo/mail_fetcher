@@ -152,7 +152,7 @@ describe MailFetcher do
         Mailer::IMAP_EMAILS.size.should == 0
         Mailer::EMAILS.size.should == 0
         
-        MailFetcher.fetch(:manipulate_connection => :use_imap)
+        MailFetcher.fetch(:use_imap => :process_with_imap)
         Mailer::IMAP_EMAILS.size.should > 0
         Mailer::EMAILS.size.should == 0
       end
@@ -179,7 +179,7 @@ class Mailer < ActionMailer::Base
     Mailer::EMAILS << email
   end
   
-  def self.use_imap(imap)
+  def self.process_with_imap(imap)
     imap.examine('INBOX')
     imap.search(['ALL']).each do |message_id|
       IMAP_EMAILS << TMail::Mail.parse(imap.fetch(message_id,'RFC822')[0].attr['RFC822'])

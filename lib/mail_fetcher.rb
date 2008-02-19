@@ -21,9 +21,9 @@ class MailFetcher
     # * <tt>finish</tt> - So, the Net::POP docs say to close the connection with pop#finish, but for some odd
     #   reason calling the below function when connected to GMail resets POP3 access and won't allow you to reconnect.
     #   This plugin was tested with a GMail account, hence the need for this option.
-    # * <tt>manipulate_connection</tt> - Used in conjunction with IMAP, in that it passes the IMAP object to the
+    # * <tt>use_imap</tt> - Used in conjunction with IMAP, in that it passes the IMAP object to the
     #   mailer_class to do whatever it wishes with the connection (since IMAP allows for more features than POP3).
-    #   Just pass in the name of the method(s) to pass the IMAP object to: :manipulate_connection => :use_imap.
+    #   Just pass in the name of the method(s) to pass the IMAP object to: :use_imap => :process_with_imap.
     def fetch(options={})
       options = prepare_options(options)
       check_mailer!(options)
@@ -48,8 +48,8 @@ class MailFetcher
       imap = Net::IMAP.new(config[:server], config[:port], true)
       imap.login(config[:username], config[:password])
       
-      if options[:manipulate_connection]
-        [options[:manipulate_connection]].flatten.each {|method| mailer_class.send(method, imap)}
+      if options[:use_imap]
+        [options[:use_imap]].flatten.each {|method| mailer_class.send(method, imap)}
       else
         imap.examine('INBOX')
         imap.search(['ALL']).each do |message_id|
