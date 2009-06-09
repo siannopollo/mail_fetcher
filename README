@@ -3,7 +3,7 @@ Also useful with the action_mailer_tls plugin if you want to send and receive
 emails through GMail. This plugin has only been tested against Rails 2, so,
 caveat emptor...
 
-The fetcher assumes there is a mailer.yml file in the config/ directory, and a
+The fetcher assumes there is a mail_fetcher.yml file in the config/ directory, and a
 sample can be seen in the mail_fetcher.yml.example file. The config expects a
 hash, so configuring it at runtime is also possible, like so:
 
